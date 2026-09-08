@@ -3,128 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Lab 1: Build a document-grounded Expense Policy Agent in Oracle AI Agent Studio.">
+  <meta name="description" content="Lab 1: Document Agent. A step-by-step Oracle AI Agent Studio walkthrough.">
   <title>Lab 1 | Document Agent</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header class="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">Oracle AI Agent Studio · Hands-on lab</p>
-      <h1>Build a document agent</h1>
-      <p class="lead">Create an Expense Policy Agent that answers employee questions from an uploaded policy document.</p>
-      <div class="meta"><span>Estimated time: 30–45 minutes</span><span>Level: Intermediate</span></div>
-      <a class="button" href="#start">Start the lab <span aria-hidden="true">↓</span></a>
+    <div class="wrap">
+      <p class="eyebrow">Oracle AI Agent Studio · Lab 1</p>
+      <h1>Document Agent</h1>
+      <p>Follow the lab exactly as presented. Every step follows the deck order, with the presenter notes as the step instructions.</p>
+      <a class="start" href="#slide-1">Start at step 1</a>
     </div>
   </header>
-
-  <main>
-    <section class="intro" id="start">
-      <div>
-        <p class="eyebrow dark">What you will build</p>
-        <h2>Policy Q&amp;A, grounded in a document</h2>
-      </div>
-      <p>By the end of this lab, users can ask a question such as “Can I fly business class?” and receive an answer based on the policy PDF you uploaded.</p>
+  <main class="wrap">
+    <section class="orientation" aria-label="How to use this lab">
+      <p><strong>How to use this page:</strong> work through the steps in order. When a note includes text to enter, use the copy button beside it.</p>
     </section>
-
-    <section class="prerequisites" aria-labelledby="prerequisites-title">
-      <h2 id="prerequisites-title">Before you begin</h2>
-      <ul>
-        <li>Access to Oracle AI Agent Studio in your Fusion environment.</li>
-        <li>A PDF version of the policy you want the agent to answer questions about.</li>
-        <li>Permission to create and publish document tools, agents, and workflows.</li>
-      </ul>
-      <p class="note"><strong>Use your own names and codes if your environment requires uniqueness.</strong> The values below are examples from this lab.</p>
-    </section>
-
-    <nav class="steps-nav" aria-label="Lab steps">
-      <a href="#tool">1. Document tool</a>
-      <a href="#agent">2. Reusable agent</a>
-      <a href="#workflow">3. Workflow</a>
-      <a href="#test">4. Test and publish</a>
-      <a href="#screenshots">Complete walkthrough</a>
-    </nav>
-
-    <section class="step" id="tool">
-      <div class="step-label">Step 1</div>
-      <div class="step-body">
-        <h2>Create the document tool</h2>
-        <p>In AI Agent Studio, create a new <strong>Document</strong> tool. Use the assistant prompt below to populate the required values, then review the generated fields before you create it.</p>
-        <div class="copy-card">
-          <div class="copy-card-header"><span>Prompt for AI Agent Studio</span><button class="copy" type="button" data-copy="tool-prompt">Copy</button></div>
-          <pre id="tool-prompt">Fill in the required fields for a document tool that will contain our company expense policy. Set the family to Common and the product to Other. Create a document entry named "Company Expense Policy". I will upload the policy PDF after the tool is created.</pre>
-        </div>
-        <div class="fields">
-          <div><span>Example tool name</span><code>Expense Policy Document Tool</code></div>
-          <div><span>Example tool code</span><code>EXPENSE_POLICY_DOCUMENT_TOOL</code></div>
-          <div><span>Document entry</span><code>Company Expense Policy</code></div>
-        </div>
-        <p>Upload the policy PDF to the document entry. Wait until the document has finished processing and is ready to publish, then save the tool.</p>
-      </div>
-    </section>
-
-    <section class="step" id="agent">
-      <div class="step-label">Step 2</div>
-      <div class="step-body">
-        <h2>Create a reusable policy agent</h2>
-        <p>Create a new agent, add the document tool from Step 1, and configure it as a reusable agent. The agent should answer policy questions only from the uploaded document.</p>
-        <div class="copy-card">
-          <div class="copy-card-header"><span>Agent role and prompt</span><button class="copy" type="button" data-copy="agent-prompt">Copy</button></div>
-          <pre id="agent-prompt">You answer employee questions about the company expense policy. Use the Expense Policy Document Tool as the source of truth. Give concise, helpful answers grounded in the document. If the document does not contain the answer, say so clearly and suggest the user contact the appropriate policy owner. Do not invent policy details.</pre>
-        </div>
-        <div class="fields">
-          <div><span>Example agent name</span><code>Expense Policy Agent</code></div>
-          <div><span>Example agent code</span><code>EXPENSE_POLICY_AGENT</code></div>
-          <div><span>Agent type</span><code>Reusable</code></div>
-        </div>
-        <p>Attach your document tool to the agent. Review the model settings that apply in your environment, then save the agent.</p>
-      </div>
-    </section>
-
-    <section class="step" id="workflow">
-      <div class="step-label">Step 3</div>
-      <div class="step-body">
-        <h2>Connect the agent in a workflow</h2>
-        <p>Create a workflow that accepts a user’s question and routes it to the reusable policy agent. A simple Start → Agent flow is enough for this lab.</p>
-        <div class="copy-card">
-          <div class="copy-card-header"><span>Workflow prompt</span><button class="copy" type="button" data-copy="workflow-prompt">Copy</button></div>
-          <pre id="workflow-prompt">Create a workflow that uses a single Agent node configured with the reusable agent code "EXPENSE_POLICY_AGENT". The workflow must accept a user's question as input and return the agent's answer. Connect the Start node directly to the Agent node and configure the agent node to handle the user's question.</pre>
-        </div>
-        <p>If you use a different agent code, replace it in the prompt before you submit it. Confirm the proposed change, then review the node settings and save the workflow.</p>
-      </div>
-    </section>
-
-    <section class="step" id="test">
-      <div class="step-label">Step 4</div>
-      <div class="step-body">
-        <h2>Test, validate, and publish</h2>
-        <ol class="checklist">
-          <li>Ask a question covered by your uploaded policy.</li>
-          <li>Check that the answer matches the policy and does not add unsupported details.</li>
-          <li>Publish the tool, agent, and workflow according to your team’s release process.</li>
-        </ol>
-        <div class="copy-card compact">
-          <div class="copy-card-header"><span>Suggested test question</span><button class="copy" type="button" data-copy="test-question">Copy</button></div>
-          <pre id="test-question">Can I fly business class?</pre>
-        </div>
-        <p class="note"><strong>Expected behavior:</strong> the answer must reflect your uploaded policy. In the lab example, business class depends on flight duration and required approvals.</p>
-      </div>
-    </section>
-
-    <section class="wrap-up">
-      <p class="eyebrow">You’re done</p>
-      <h2>Take it further</h2>
-      <p>Try a second policy document, add a handoff path for questions the policy does not answer, or create a focused workflow for a different employee policy.</p>
-    </section>
-
-    <section class="screenshots" id="screenshots" aria-labelledby="screenshots-title">
-      <p class="eyebrow dark">Reference walkthrough</p>
-      <h2 id="screenshots-title">Every screenshot from the deck</h2>
-      <p>The complete sequence from the PowerPoint deck is available below. Use it as a visual companion while you work through the copy-friendly instructions above.</p>
-      <div class="gallery" id="gallery" aria-live="polite"></div>
-    </section>
+    <nav class="contents" aria-label="Step navigation" id="contents"></nav>
+    <section id="steps" aria-label="Lab steps"></section>
   </main>
-  <footer>Lab 1 · Document Agent · Built for GitHub Pages</footer>
+  <footer class="wrap">Lab 1 · Document Agent</footer>
   <script src="script.js"></script>
 </body>
 </html>

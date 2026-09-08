@@ -2,7 +2,9 @@
 
 A static GitHub Pages site for the Document Agent lab.
 
-The page includes every screenshot from the supplied deck in deck order, including the composite view used on slide 37.
+The page presents every deck image in order as the lab walkthrough. Each step uses the associated speaker notes as its explanation, including the composite view used on step 37.
+
+The sample policy PDF is stored at `assets/documents/expense-policy.pdf` and is linked from Step 13.
 
 ## Publish on GitHub Pages
 
