@@ -1,10 +1,13 @@
-# Lab 1: Document Agent
+# Oracle AI Agent Studio Labs
 
-A static GitHub Pages site for the Document Agent lab.
+A static GitHub Pages site with two step-by-step labs:
 
-The page presents every deck image in order as the lab walkthrough. Each step uses the associated speaker notes as its explanation, including the composite view used on step 37.
+- Lab 1: Document Agent
+- Lab 2: Supplier Inquiry Workflow
 
-The sample policy PDF is stored at `assets/documents/expense-policy.pdf` and is linked from Step 13.
+The root page links to both labs. Each lab presents the deck screenshots in sequence and uses its speaker notes as the step explanations. Copy buttons are available for text participants need to enter.
+
+The Lab 1 policy PDF is stored at `lab1/assets/documents/expense-policy.pdf` and linked from Lab 1, Step 13.
 
 ## Publish on GitHub Pages
 
