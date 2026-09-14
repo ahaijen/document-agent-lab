@@ -38,7 +38,7 @@ body:has(.landing) { min-height: 100vh; background: radial-gradient(circle at 80
 .landing { padding: clamp(5rem, 14vh, 10rem) 0 5rem; }
 .landing h1 { margin: 0; font-size: clamp(3.25rem, 8vw, 6.5rem); }
 .landing .intro { max-width: 650px; margin: 1.5rem 0 3rem; color: var(--muted); font-size: 1.18rem; }
-.lab-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.lab-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; }
 .lab-links a { display: grid; gap: .6rem; min-height: 250px; padding: 2rem; color: #fff; background: linear-gradient(140deg, #09263d, #0b5961); border-radius: .5rem; box-shadow: 0 14px 30px #10263d1c; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
 .lab-links a:nth-child(2) { background: linear-gradient(140deg, #4b2438, #9a4c36); }
 .lab-links a:hover, .lab-links a:focus { box-shadow: 0 20px 38px #10263d29; transform: translateY(-3px); }
