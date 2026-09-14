@@ -25,11 +25,11 @@ const notes = [
   'Ask for the details of a specific supplier by entering the following supplier number.',
   '',
   'This is an agent created by Codex in a few minutes. The prompt needs further refinement, but the initial result already looks good.',
-  ''
+  'Download the working example to review the completed business object, tool, agent, and workflow.'
 ];
 
 const titles = [
-  'Sign in', 'Open AI Agent Studio', 'Lab overview', 'Review available tools', 'Find the supplier tool', 'Review tool details', 'Open Agents', 'Start a new agent', 'Enter agent details', 'Find the supplier tool', 'Add the tool to the agent', 'Configure the agent', 'Open Prompts', 'Add the agent prompt', 'Add the summarization prompt', 'Save the agent', 'Prepare the workflow', 'Switch to Workflows', 'Select Workflows', 'Ready to create the workflow', 'Request workflow generation', 'Approve workflow creation', 'Test supplier search', 'Request supplier details', 'Let’s put CODEX to work', 'Codex example', 'End of Lab'
+  'Sign in', 'Open AI Agent Studio', 'Lab overview', 'Review available tools', 'Find the supplier tool', 'Review tool details', 'Open Agents', 'Start a new agent', 'Enter agent details', 'Find the supplier tool', 'Add the tool to the agent', 'Configure the agent', 'Open Prompts', 'Add the agent prompt', 'Add the summarization prompt', 'Save the agent', 'Prepare the workflow', 'Switch to Workflows', 'Select Workflows', 'Ready to create the workflow', 'Request workflow generation', 'Approve workflow creation', 'Test supplier search', 'Request supplier details', 'Let’s put CODEX to work', 'Codex example', 'Working example'
 ];
 
 const supplierPrompt = `## Role
@@ -165,7 +165,8 @@ for (let step = 1; step <= 27; step += 1) {
     ? '<div class="empty-slide" aria-label="Blank final step"></div>'
     : `<img class="slide-shot" src="assets/slides/${String(step).padStart(2, '0')}.png" alt="Step ${step}: ${escapeHtml(titles[step - 1])}">`;
   const copy = copyText[step] ? `<div class="copy-block"><div class="copy-head"><span>Text to enter</span><button type="button" data-copy="${step}">Copy</button></div><pre>${escapeHtml(copyText[step])}</pre></div>` : '';
-  section.innerHTML = `<div class="number">Step ${step}</div><div class="step-content"><h2>${titles[step - 1]}</h2><div class="notes">${noteHtml}</div>${copy}${visual}</div>`;
+  const resource = step === 27 ? '<p><a class="document-link" href="assets/documents/supplier_query_workflow.zip" download>Download the working example</a></p>' : '';
+  section.innerHTML = `<div class="number">Step ${step}</div><div class="step-content"><h2>${titles[step - 1]}</h2><div class="notes">${noteHtml}${resource}</div>${copy}${visual}</div>`;
   steps.append(section);
   const link = document.createElement('a');
   link.href = `#step-${step}`;

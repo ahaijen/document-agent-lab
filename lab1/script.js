@@ -45,10 +45,10 @@ const notes = [
   'The workflow is created.',
   'The tool is created. Upload the PDF to complete its setup.',
   'You are ready to test the workflow.',
-  ''
+  'Download the working example to review the completed tool, agent, and workflow.'
 ];
 
-const titles = ['Sign in', 'Open AI Agent Studio', 'Lab overview', 'Review available tools', 'Start a new tool', 'Name the tool', 'Use the Brain Agent', 'Request document tool setup', 'Review generated fields', 'Close the Brain dialogue', 'Edit the document entry', 'Set document status', 'Upload the policy PDF', 'Create the tool', 'Open Agents', 'Start a new agent', 'Add the document tool', 'Configure the agent', 'Select the agent', 'Enter agent details', 'Open Prompts', 'Add the agent prompt', 'Open LLM settings', 'Choose the Basic model', 'Create the agent', 'Find the agent', 'Prepare a workflow', 'Switch to Workflows', 'Select Workflows', 'Workflow workspace', 'Request workflow generation', 'Wait for generation', 'Approve the first change', 'Approve remaining changes', 'Debug the workflow', 'Workflow test', 'Return home', 'Home page', 'Alternative: create with Claude or Codex', 'Inspect the request', 'Create the agent and document', 'Create the workflow', 'Validate the work', 'Review the workflow', 'Review the tool', 'Test the result', 'End of lab'];
+const titles = ['Sign in', 'Open AI Agent Studio', 'Lab overview', 'Review available tools', 'Start a new tool', 'Name the tool', 'Use the Brain Agent', 'Request document tool setup', 'Review generated fields', 'Close the Brain dialogue', 'Edit the document entry', 'Set document status', 'Upload the policy PDF', 'Create the tool', 'Open Agents', 'Start a new agent', 'Add the document tool', 'Configure the agent', 'Select the agent', 'Enter agent details', 'Open Prompts', 'Add the agent prompt', 'Open LLM settings', 'Choose the Basic model', 'Create the agent', 'Find the agent', 'Prepare a workflow', 'Switch to Workflows', 'Select Workflows', 'Workflow workspace', 'Request workflow generation', 'Wait for generation', 'Approve the first change', 'Approve remaining changes', 'Debug the workflow', 'Workflow test', 'Return home', 'Home page', 'Alternative: create with Claude or Codex', 'Inspect the request', 'Create the agent and document', 'Create the workflow', 'Validate the work', 'Review the workflow', 'Review the tool', 'Test the result', 'Working example'];
 
 const copyText = {
   8: 'Complete the required fields for a document tool that will contain the company expense policy. Set Family to Common and Product to Other. Create a document entry. I will upload the policy PDF after the tool is created.',
@@ -71,7 +71,11 @@ for (let slide = 1; slide <= 47; slide += 1) {
       ? '<div class="empty-slide" aria-label="Blank final step"></div>'
       : `<img class="slide-shot" src="assets/slides/${String(slide).padStart(2, '0')}.png" alt="Step ${slide}: ${escapeHtml(titles[slide - 1])}">`;
   const copy = copyText[slide] ? `<div class="copy-block"><div class="copy-head"><span>Text to enter</span><button type="button" data-copy="${slide}">Copy</button></div><pre>${escapeHtml(copyText[slide])}</pre></div>` : '';
-  const resource = slide === 13 ? '<p class="document-link"><a href="assets/documents/expense-policy.pdf" target="_blank" rel="noopener">Download the expense policy PDF</a></p>' : '';
+  const resource = slide === 13
+    ? '<p class="document-link"><a href="assets/documents/expense-policy.pdf" target="_blank" rel="noopener">Download the expense policy PDF</a></p>'
+    : slide === 47
+      ? '<p class="document-link"><a href="assets/documents/ah001_expense_policy_workflow.zip" download>Download the working example</a></p>'
+      : '';
   section.innerHTML = `<div class="number">Step ${slide}</div><div class="step-content"><h2>${titles[slide - 1]}</h2><div class="notes">${noteHtml}${resource}</div>${copy}${visual}</div>`;
   steps.append(section);
   const link = document.createElement('a');
