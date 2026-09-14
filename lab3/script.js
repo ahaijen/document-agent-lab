@@ -18,11 +18,11 @@ const notes = [
   'The system explains the test case and result in plain language. When you are satisfied with the policy, click Publish.',
   'The policy is ready to use. A workflow is needed to use the policy, but workflow creation is outside this lab. The next step shows the result.',
   'This example shows a policy node in a workflow making fully deterministic, explainable decisions.',
-  'End of Lab.'
+  'Download the working workflow package to see the policy model in action yourself.'
 ];
 
 const titles = [
-  'Travel policy overview', 'Sign in', 'Open AI Agent Studio', 'Open Policy Models', 'Open Policies', 'Create a policy', 'Enter policy details', 'Add the policy prompt', 'Upload the policy document', 'Generate the policy', 'Open the generated function', 'Review inputs', 'Review required inputs', 'Generate test cases', 'Run test cases', 'Explain a test result', 'Publish the policy', 'Policy ready for workflow use', 'Policy node example', 'End of Lab'
+  'Travel policy overview', 'Sign in', 'Open AI Agent Studio', 'Open Policy Models', 'Open Policies', 'Create a policy', 'Enter policy details', 'Add the policy prompt', 'Upload the policy document', 'Generate the policy', 'Open the generated function', 'Review inputs', 'Review required inputs', 'Generate test cases', 'Run test cases', 'Explain a test result', 'Publish the policy', 'Policy ready for workflow use', 'Policy node example', 'Working workflow'
 ];
 
 const policyPrompt = `Create a Travel Eligibility policy template using the uploaded policy document as the source of truth.
@@ -53,7 +53,11 @@ for (let step = 1; step <= 20; step += 1) {
   section.className = 'lab-step';
   section.id = `step-${step}`;
   const noteHtml = notes[step - 1].split('\n\n').map((paragraph) => `<p>${escapeHtml(paragraph).replace(/\n/g, '<br>')}</p>`).join('');
-  const resource = step === 1 ? '<p><a class="document-link" href="assets/documents/travel-demo-policy.md" download>Download the travel policy document</a></p>' : '';
+  const resource = step === 1
+    ? '<p><a class="document-link" href="assets/documents/travel-demo-policy.md" download>Download the travel policy document</a></p>'
+    : step === 20
+      ? '<p><a class="document-link" href="assets/documents/ah007_travel_policy.zip" download>Download the working workflow package</a></p>'
+      : '';
   const visual = step === 20
     ? '<div class="empty-slide" aria-label="Blank final step"></div>'
     : `<img class="slide-shot" src="assets/slides/${String(step).padStart(2, '0')}.png" alt="Step ${step}: ${escapeHtml(titles[step - 1])}">`;
