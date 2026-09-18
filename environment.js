@@ -1,9 +1,17 @@
 // Repository owner: update only the values in this block before publishing.
 const environmentSettings = {
-  url: 'https://your-environment.example.oraclecloud.com',
+  url: 'https://fa-erzv-dev4-saasfademo1.ds-fa.oraclepdemos.com/hcmUI/redwoodAI',
   usernames: [
-    'USERNAME_1',
-    'USERNAME_2'
+    'HCM_IMPL1',
+    'HCM_IMPL2',
+    'HCM_IMPL3',
+    'HCM_IMPL4',
+    'HCM_IMPL5',
+    'HCM_IMPL6',
+    'HCM_IMPL7',
+    'HCM_IMPL8',
+    'HCM_IMPL9',
+    'HCM_IMPL10'
   ]
 };
 
