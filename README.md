@@ -1,10 +1,11 @@
 # Oracle AI Agent Studio Labs
 
-A static GitHub Pages site with three step-by-step labs:
+A static GitHub Pages site with four step-by-step labs:
 
 - Lab 1: Document Agent
 - Lab 2: Supplier Inquiry Workflow
 - Lab 3: Travel Policy Model
+- Lab 4: Customize a Seeded Workflow
 
 The root page links to both labs. Each lab presents the deck screenshots in sequence and uses its speaker notes as the step explanations. Copy buttons are available for text participants need to enter.
 
