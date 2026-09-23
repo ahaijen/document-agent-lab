@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Downloads and copyable text for Lab 1: Document Agent.">
+  <title>Resources &amp; Copyable Text | Lab 1</title>
+  <link rel="stylesheet" href="../resources.css">
+</head>
+<body>
+  <header class="resource-hero">
+    <div class="wrap">
+      <a class="back-link" href="index.html">Full lab guide</a>
+      <p class="eyebrow">Oracle AI Agent Studio · Lab 1</p>
+      <h1>Resources &amp; Copyable Text</h1>
+      <p>Keep this page open while following the presenter. It contains only the files to download and text to enter.</p>
+    </div>
+  </header>
+  <main class="wrap"><section class="resource-list" id="resource-list" aria-label="Lab resources"></section></main>
+  <script>
+    window.labResources = { items: [
+      { type: 'copy', step: 8, copyStep: 8, title: 'Document tool setup', description: 'Paste this into the Brain Agent, then click Yes.' },
+      { type: 'download', step: 13, title: 'Expense policy PDF', description: 'Download this file before uploading it to the document tool.', href: 'assets/documents/expense-policy.pdf', label: 'Download the expense policy PDF' },
+      { type: 'copy', step: 22, copyStep: 22, title: 'Agent prompt', description: 'Paste this into the agent Prompt field.' },
+      { type: 'copy', step: 31, copyStep: 31, title: 'Workflow request', description: 'Replace YOUR_AGENT_CODE with the code of the agent you created, then paste this into Ask Oracle.' },
+      { type: 'download', step: 47, title: 'Working example', description: 'Download the completed tool, agent, and workflow package to review the finished result.', href: 'assets/documents/ah001_expense_policy_workflow.zip', label: 'Download the working example' }
+    ] };
+  </script>
+  <script src="script.js"></script>
+  <script src="../resources.js"></script>
+</body>
+</html>

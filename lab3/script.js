@@ -48,6 +48,7 @@ const escapeHtml = (text) => text.replace(/[&<>"']/g, (char) => ({ '&': '&amp;',
 const steps = document.getElementById('steps');
 const contents = document.getElementById('contents');
 
+if (steps && contents) {
 for (let step = 1; step <= 20; step += 1) {
   const section = document.createElement('section');
   section.className = 'lab-step';
@@ -69,6 +70,7 @@ for (let step = 1; step <= 20; step += 1) {
   link.textContent = step;
   link.setAttribute('aria-label', `Go to step ${step}: ${titles[step - 1]}`);
   contents.append(link);
+}
 }
 
 document.querySelectorAll('[data-copy]').forEach((button) => {

@@ -5,6 +5,8 @@ body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inte
 .wrap { width: min(1100px, calc(100% - 2.5rem)); margin: 0 auto; }
 .hero { padding: 2rem 0 5.5rem; color: #fff; background: radial-gradient(circle at 77% 22%, #8a4539 0, transparent 25rem), linear-gradient(130deg, #28172d, #663447); }
 .home-link { display: inline-block; margin-bottom: 3.3rem; color: #f9d674; font-size: .88rem; font-weight: 750; text-decoration: none; }
+.resources-link { display: inline-block; margin-left: 1.25rem; color: #f9d674; font-size: .88rem; font-weight: 750; text-decoration: none; }
+.home-link:hover, .home-link:focus, .resources-link:hover, .resources-link:focus { text-decoration: underline; text-underline-offset: .25rem; }
 .eyebrow { margin: 0 0 .65rem; color: var(--gold); font-size: .78rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
 h1, h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; line-height: 1.1; }
 h1 { max-width: 760px; margin: 0; font-size: clamp(3.25rem, 8vw, 6.5rem); }
