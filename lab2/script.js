@@ -147,7 +147,7 @@ const copyText = {
   9: 'Agent Name: [Your initials][number] Supplier Query Agent\nFamily: Common\nModule: Other\nDescription: An agent that can query the supplier database.',
   14: supplierPrompt,
   15: summarizationPrompt,
-  21: 'Create a workflow using the agent YOUR_AGENT_CODE. The workflow should pass the user input to the agent, allowing a query of the supplier database.',
+  21: 'Create a workflow using the agent YOUR_AGENT_CODE. The workflow should pass the user input to the agent, allowing a query of the supplier database. Name the workflow [Your initials][number]_SUPPLIER_QUERY_WF.',
   23: 'Show all suppliers that contain Supplies',
   24: '1337'
 };
