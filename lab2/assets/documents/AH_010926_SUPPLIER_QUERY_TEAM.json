@@ -1,0 +1,276 @@
+{
+  "Specification": {
+    "partnerMetadata": {},
+    "dataPipeline": {
+      "pipelineNodes": [
+        {
+          "metadata": {
+            "description": "Start of data pipeline",
+            "name": "Start"
+          },
+          "outcomes": {
+            "success": "end"
+          },
+          "code": "START",
+          "id": "start",
+          "inputs": [],
+          "type": "START"
+        },
+        {
+          "metadata": {
+            "description": "End of data pipeline",
+            "name": "End"
+          },
+          "outcomes": {},
+          "code": "END",
+          "id": "end",
+          "inputs": [],
+          "type": "END"
+        }
+      ],
+      "rootNode": "start",
+      "variables": [],
+      "errorHandlers": [
+        {
+          "type": "EMAIL",
+          "inputs": [
+            {
+              "name": "toList",
+              "type": "string",
+              "value": ""
+            },
+            {
+              "name": "ccList",
+              "type": "string",
+              "value": ""
+            },
+            {
+              "name": "subject",
+              "type": "string",
+              "value": ""
+            },
+            {
+              "name": "body",
+              "type": "string",
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    "modelConfiguration": {
+      "modelProperties": {
+        "k": 0,
+        "max_tokens": 32000,
+        "p": 0.75,
+        "temperature": 0.01,
+        "reasoning_effort": "low"
+      },
+      "code": "ORA_LLM_MODEL_PROVIDER_CERT_BASIC_LLAMA_3_3_70B",
+      "model": "ORA_LLM_MODEL_GPT_OSS_120B",
+      "modelName": "GPT OSS 120B (Basic)",
+      "provider": "CERT_BASIC"
+    },
+    "jsonSchemaName": "Workflow.spec",
+    "jsonSchemaVersion": "1",
+    "inputs": [],
+    "outputSpecification": " ",
+    "agentsValueMappings": [],
+    "humanApprovalFlag": false,
+    "waitFlag": false,
+    "triggers": [
+      {
+        "type": "REST",
+        "inputs": []
+      }
+    ],
+    "deletedTriggerTypes": [],
+    "chatExpLocalFileUploadEnabledFlag": false,
+    "costSavings": 0,
+    "timeSavings": 10,
+    "chatExpTPFileUploadEnabledFlag": false,
+    "chatExpThirdPartyDetails": []
+  },
+  "WorkflowCode": "AH_010926_SUPPLIER_QUERY_TEAM",
+  "Name": "AH-010926 Supplier Query Supervisor",
+  "Description": "A simple supervisor team with one worker agent that resolves accessible Oracle Fusion suppliers by name or number, retrieves the full supplier record, and answers questions using only returned supplier data.",
+  "Family": "FIN",
+  "Product": "OTHER",
+  "HiddenFlag": false,
+  "AiAppsCompatibleFlag": false,
+  "UseCaseId": "NA",
+  "SourceWorkflowId": null,
+  "AccessModifier": "public",
+  "StartQuestionOne": null,
+  "StartQuestionTwo": null,
+  "StartQuestionThree": null,
+  "FollowUpPromptEnabledFlag": false,
+  "FollowUpPrompt": "Generate concise follow-up questions in JSON format when enabled.",
+  "Architecture": "single_agent",
+  "MaximumInteractions": null,
+  "StartAgentId": null,
+  "agents": [
+    {
+      "Specification": {
+        "customFlag": true,
+        "jsonSchemaName": "Agent.spec",
+        "jsonSchemaVersion": "1",
+        "inputs": [],
+        "outputSpecification": "",
+        "summarizationMode": "Custom",
+        "agentRole": "",
+        "summarizationPrompt": "## Task\n\nGenerate the final user-facing response using only the data contained in the upstream agent result.\n\n## Rule 1 — Multiple Supplier Search Results\n\nIf the upstream result contains **more than one supplier search record**, you MUST:\n\n1. Display **every returned supplier**.\n2. Preserve these returned fields exactly:\n\n   * Supplier Name\n   * Supplier Number\n   * SupplierId\n3. Render the suppliers in an HTML table.\n4. Ask the user to select one supplier **only after the table is displayed**.\n\n<table border=\"1\">\n<tr>\n<th>Supplier Name</th>\n<th>Supplier Number</th>\n<th>SupplierId</th>\n</tr>\n<!-- one row for EVERY returned supplier -->\n</table>\n\n**Never output only a sentence asking the user to select a supplier.**\n\n**Never say \"from the list above\" unless the list is actually displayed in the same response.**\n\n## Rule 2 — One Supplier With Details\n\nIf the upstream result contains a `getSupplierDetails` response for one supplier:\n\n1. Display the supplier details.\n2. Include all non-null fields returned by `getSupplierDetails`.\n3. Preserve the returned values exactly.\n4. Do not ask the user to select a supplier.\n\n## Rule 3 — One Search Result Without Details\n\nIf exactly one supplier search record is present but no `getSupplierDetails` response is present, display that supplier and do not ask for a selection.\n\n## Rule 4 — No Results\n\nIf no supplier records are present, state that no matching suppliers were found.\n\n## Strict Rules\n\n**Do not replace supplier records with a description of the records.**\n\n**Do not acknowledge these instructions. Execute them.**\n\n**Do not invent, infer, omit, or alter supplier data.**\n\n**The actual supplier records must appear in the final response whenever they are present in the upstream result.**\n"
+      },
+      "AgentCode": "AH_010926_SUPPLIER_QUERY_AGENT",
+      "Name": "AH-010926 Supplier Query Agent",
+      "Description": "Resolves suppliers by name or number, retrieves full supplier records, and answers supplier questions from returned fields.",
+      "Family": "FIN",
+      "Product": "OTHER",
+      "ModuleId": null,
+      "Namespace": "FIN.OTHER",
+      "SeededFlag": false,
+      "PromptCode": null,
+      "Version": 1,
+      "MaximumInteractions": 5,
+      "AgentType": "WORKER",
+      "Prompt": "## Role\n\nYou are a precise, read-only Oracle Fusion supplier-query agent operating under a supervisor.\n\n## Tools\n\nUse only:\n\n* `searchSuppliersByNameOrNumber`\n* `getSupplierDetails`\n\n## Supplier Lookup\n\nFor every supplier lookup:\n\n1. Extract a supplier name, partial name, or supplier number. If none is provided, ask the user to provide one.\n2. Call `searchSuppliersByNameOrNumber` with the user's input.\n3. Process the search results:\n\n### No Matches\n\nIf no suppliers are returned:\n\n* Tell the user that no matching suppliers were found.\n* Do not call `getSupplierDetails`.\n\n### Exactly One Match\n\nIf exactly one supplier is returned:\n\n* Take the `SupplierId` exactly as returned.\n* **Immediately call `getSupplierDetails` using that `SupplierId`.**\n* **Do not ask the user to select a supplier.**\n* Pass the **complete `getSupplierDetails` response** to the final response/summarization layer.\n* The final response must be based on the full supplier-details response.\n\n### Multiple Matches\n\nIf more than one supplier is returned:\n\n* **Do not call `getSupplierDetails`.**\n* **Return all supplier matches to the user before asking for a selection.**\n* Include every returned match and, when available:\n\n  * Supplier Name\n  * Supplier Number\n  * SupplierId\n* Ask the user to identify one supplier.\n* When the user selects one, use only the `SupplierId` from the latest returned search results and then call `getSupplierDetails`.\n\n## Supplier Selection\n\nMatch the user's selection only against the latest search results.\n\nA selection may be by:\n\n* Supplier Name\n* Supplier Number\n* SupplierId\n* Clear reference to one displayed result\n\nDo not retrieve details until exactly one supplier has been identified.\n\n## Follow-Up Questions\n\nAfter `getSupplierDetails` succeeds:\n\n* Answer using only the returned supplier-details record.\n* Include any requested fields that are present.\n* If a requested field is not present, say that it was not returned by the configured supplier API.\n\n## Guardrails\n\n**Never invent, infer, modify, or alter supplier data.**\n**Never invent a SupplierId.**\n**Never use a SupplierId that was not returned by the configured search tool.**\n**Never call a tool other than the two configured tools.**\n**Never create, update, delete, or modify supplier data.**\nPreserve returned values exactly.\n\n## Output Behavior\n\n* Single match: return the full supplier-details result.\n* Multiple matches: return all search matches, then ask the user to select one.\n* No matches: state that no matching suppliers were found.\n* Be concise and professional.",
+      "ModelConfigId": null,
+      "ReusableFlag": true,
+      "tools": [
+        {
+          "Specification": {
+            "businessObjectMetadata": {
+              "functions": [
+                "searchSuppliersByNameOrNumber",
+                "getSupplierDetails"
+              ]
+            },
+            "jsonSchemaName": "Tool.spec",
+            "jsonSchemaVersion": "1",
+            "customFlag": true,
+            "sourceObjectCode": "ORA_FIN_OTHER_AH_010926_SUP_BO"
+          },
+          "RestTool": {
+            "ObjectProperties": {
+              "jsonSchemaName": "supportedObjectProperties",
+              "jsonSchemaVersion": 1,
+              "tools": [
+                {
+                  "headers": {
+                    "REST-Framework-Version": "9"
+                  },
+                  "name": "searchSuppliersByNameOrNumber",
+                  "description": "Search accessible suppliers whose name or supplier number contains the supplied search term.",
+                  "operationType": "GET",
+                  "resourcePath": "/fscmRestApi/resources/11.13.18.05/suppliers?q=Supplier LIKE '*{SearchTerm}*' OR SupplierNumber LIKE '*{SearchTerm}*'&fields=SupplierId,SupplierPartyId,Supplier,SupplierNumber,AlternateName,Status,BusinessRelationshipCode,DUNSNumber,TaxRegistrationNumber,RegistryId&onlyData=true&totalResults=true&limit=25&offset=0",
+                  "resourceType": "ADF_BC_FIXED_QUERY",
+                  "bodyTemplate": "",
+                  "useNativeAuthentication": true,
+                  "type": "BUS_OBJECT",
+                  "parameterDefinitions": [
+                    {
+                      "name": "SearchTerm",
+                      "dataType": "string",
+                      "description": "Supplier name fragment or supplier number to search for.",
+                      "id": 26,
+                      "isToken": true,
+                      "location": "query",
+                      "source": "placeholder",
+                      "defaultValue": ""
+                    }
+                  ],
+                  "sampleQueries": [
+                    {
+                      "query": {
+                        "SearchTerm": "24/7"
+                      },
+                      "description": "Find a supplier by a name fragment."
+                    },
+                    {
+                      "query": {
+                        "SearchTerm": "1416"
+                      },
+                      "description": "Find a supplier by supplier number."
+                    }
+                  ]
+                },
+                {
+                  "headers": {
+                    "REST-Framework-Version": "9"
+                  },
+                  "name": "getSupplierDetails",
+                  "description": "Retrieve the full accessible supplier record using the SupplierId returned by the supplier search or collection query.",
+                  "operationType": "GET",
+                  "resourcePath": "/fscmRestApi/resources/11.13.18.05/suppliers?q=SupplierId='{SupplierId}'&onlyData=true&limit=1&offset=0",
+                  "resourceType": "ADF_BC_FIXED_QUERY",
+                  "bodyTemplate": "",
+                  "useNativeAuthentication": true,
+                  "type": "BUS_OBJECT",
+                  "parameterDefinitions": [
+                    {
+                      "name": "SupplierId",
+                      "dataType": "integer",
+                      "description": "Supplier identifier returned by the supplier lookup.",
+                      "id": 31,
+                      "isToken": true,
+                      "location": "query",
+                      "source": "placeholder",
+                      "defaultValue": ""
+                    }
+                  ],
+                  "sampleQueries": [
+                    {
+                      "query": {
+                        "SupplierId": "300000047414503"
+                      },
+                      "description": "Retrieve the full supplier record for a supplier returned by search."
+                    }
+                  ]
+                }
+              ]
+            },
+            "ObjectCode": "ORA_FIN_OTHER_AH_010926_SUP_BO",
+            "Family": "FIN",
+            "Product": "OTHER",
+            "ObjectSource": "ADF_BC",
+            "Category": null,
+            "RestResourcePath": "/fscmRestApi/resources/11.13.18.05/suppliers",
+            "RestResourceIdentifier": "identifier_not_known",
+            "RestSupportedOperations": "{\"allowedOperations\":{\"GET\":true,\"POST\":false,\"PATCH\":false,\"PUT\":false,\"DELETE\":false}}",
+            "ParentSupptObjectId": null,
+            "MandatoryFlag": false,
+            "SeededFlag": false,
+            "ObjectDisplayName": "AH-010926 Supplier Query BO",
+            "Name": "AH-010926 Supplier Query BO",
+            "Description": "Read-only supplier lookup business object that searches by supplier name or supplier number."
+          },
+          "ToolCode": "AH_010926_SUPPLIER_QUERY_TOOLS",
+          "Type": "BUS_OBJECT",
+          "Name": "AH-010926 Supplier Query Tools",
+          "Description": "Read-only supplier lookup business object that searches by supplier name or supplier number.",
+          "Family": "FIN",
+          "Product": "OTHER",
+          "SeededFlag": false,
+          "HiddenFlag": false,
+          "ModuleId": null,
+          "Namespace": "FIN.OTHER",
+          "Version": 1,
+          "UserInputRequiredFlag": false,
+          "UserInputMsg": null
+        }
+      ],
+      "topics": []
+    }
+  ],
+  "agentMappings": [
+    {
+      "EdgeOrder": 0,
+      "AgentCode": "AH_010926_SUPPLIER_QUERY_AGENT",
+      "AgentTargetCode": "AH_010926_SUPPLIER_QUERY_AGENT"
+    }
+  ],
+  "partnerMetadata": {
+    "Description": "",
+    "Name": "Alex Inc"
+  }
+}
