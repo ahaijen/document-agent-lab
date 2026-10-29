@@ -55,7 +55,7 @@ const copyText = {
   21: 'Agent Name: [Your initials][number] Weather Forecaster\nFamily: Common\nProduct: Other\nDescription: Weather Forecast Agent\nMaximum Interactions: 5',
   22: agentPrompt,
   27: 'Agent Team Name: [Your initials][number] Weather Forecast Agent\nFamily: Common\nProduct: Other\nDescription: Weather Forecaster',
-  30: 'Name: Weather Agent\nDescription: Weather Forecast Agent\nAgent Type: Reusable\nInclude Chat History: Yes\nFamily: Common\nProduct: Other\nAgent: [Name of your agent]\nMessage: {{$context.$system.$inputMessage}}',
+  30: 'Name: Weather Agent\nDescription: Weather Forecast Agent\nAgent Type: Reusable\nInclude Chat History: No\nFamily: Common\nProduct: Other\nAgent: [Name of your agent]\nMessage: {{$context.$system.$inputMessage}}',
   32: 'What is the weather in the South Pole?'
 };
 
