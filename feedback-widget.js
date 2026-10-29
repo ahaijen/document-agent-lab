@@ -4,6 +4,10 @@ const labMatch = document.querySelector('.eyebrow')?.textContent.match(/Lab\s+\d
 const feedbackLabName = labMatch ? labMatch[0] : 'Lab';
 
 if (feedbackFormUrl) {
+  document.querySelectorAll('a[href="../feedback.html"]').forEach((link) => {
+    link.href = `../feedback.html?lab=${encodeURIComponent(feedbackLabName)}`;
+  });
+
   document.querySelectorAll('.lab-step').forEach((section) => {
     const step = section.querySelector('.number')?.textContent.replace('Step', '').trim();
     const stepContent = section.querySelector('.step-content');
