@@ -47,6 +47,13 @@ body:has(.landing) { min-height: 100vh; background: radial-gradient(circle at 80
 .lab-number { color: var(--gold); font-size: .78rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
 .landing-environment-link { display: inline-block; text-decoration: none; }
 .landing-environment-link:hover, .landing-environment-link:focus { text-decoration: underline; text-underline-offset: .25rem; }
+.landing-feedback-link { display: inline-block; margin: -1rem 0 2.5rem; color: var(--teal); font-weight: 800; }
+.feedback-page { padding: clamp(3rem, 10vh, 7rem) 0 5rem; }
+.feedback-page h1 { margin: 0; }
+.feedback-page .intro { max-width: 680px; margin: 1.5rem 0 2.5rem; color: var(--muted); font-size: 1.18rem; }
+.feedback-form { min-height: 720px; width: 100%; border: 0; background: #fff; }
+.feedback-unavailable { max-width: 700px; padding: 2rem; background: #fff; border-left: 5px solid var(--orange); box-shadow: 0 12px 28px #10263d12; }
+.feedback-unavailable p { margin: 0; }
 .environment-page { padding: clamp(3rem, 10vh, 7rem) 0 5rem; }
 .back-link { display: inline-block; margin-bottom: 3rem; color: var(--teal); font-size: .88rem; font-weight: 750; text-decoration: none; }
 .environment-page h1 { margin: 0; }
