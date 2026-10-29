@@ -15,7 +15,6 @@ if (feedbackFormUrl) {
     const feedback = document.createElement('p');
     feedback.className = 'step-feedback';
     feedback.innerHTML = `<a class="step-feedback-link" href="${url.href}" target="_blank" rel="noopener">Leave feedback on this step</a>`;
-    const visual = stepContent.querySelector('.slide-shot, .video-demo, .empty-slide, .composite');
-    stepContent.insertBefore(feedback, visual || null);
+    stepContent.append(feedback);
   });
 }
